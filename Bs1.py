@@ -9,21 +9,21 @@ import Bs
 
 
 def F(Marche, t, S, K, T, r, sigma):
-    return Bs.BS_CALL(t, So, K, T, r, sigma) - Marche
+    return Bs.BS_CALL(t, S, K, T, r, sigma) - Marche
 
 
-def Find_volatility_implicite(t, So, K, T, r, M, epsilon):
+def Find_volatility_implicite(t, S, K, T, r, M, epsilon):
     sigma = []
     vol = []
 
     for i in range(0, len(K)):
-        if M[i] < So and M[i] > max(So - K[i] * np.exp(-r * T), 0):
-            sigma.append(np.sqrt(2 * np.abs(np.log(So / K[i]) + r * T) / T))
-            while np.abs(F(M[i], t, So, K[i], T, r, sigma[len(sigma) - 1])) > epsilon:
+        if M[i] < S and M[i] > max(S - K[i] * np.exp(-r * T), 0):
+            sigma.append(np.sqrt(2 * np.abs(np.log(S / K[i]) + r * T) / T))
+            while np.abs(F(M[i], t, S, K[i], T, r, sigma[len(sigma) - 1])) > epsilon:
                 sigma.append(
-                    sigma[len(sigma) - 1] - F(M[i], t, So, K[i], T, r, sigma[len(sigma) - 1]) / Bs.Vega(t, So, K[i], T,
-                                                                                                        r, sigma[
-                                                                                                            len(sigma) - 1]))
+                    sigma[len(sigma) - 1] - F(M[i], t, S, K[i], T, r, sigma[len(sigma) - 1]) / Bs.Vega(t, S, K[i], T,
+                                                                                                       r, sigma[
+                                                                                                           len(sigma) - 1]))
             vol.append(sigma[len(sigma) - 1])
             sigma = []
         else:
@@ -58,7 +58,7 @@ epsilon = 0.0001
 Vol = Find_volatility_implicite(t, So, K, T, r, M, epsilon)
 condition_arbitrage(Vol, K, M)
 Y = []
-Vola=[]
+Vola = []
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -67,7 +67,7 @@ for i in range(1, 13):
     Y.append(i / 12)
 
 for i in range(len(Y)):
-    Vola.append(Find_volatility_implicite(t,So, K, Y[i], r,M,epsilon))
+    Vola.append(Find_volatility_implicite(t, So, K, Y[i], r, M, epsilon))
     ax.scatter(K, Y[i], Vola[i])
 
 ax.set_title("Volatilite implicite")

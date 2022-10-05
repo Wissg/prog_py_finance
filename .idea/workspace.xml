@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="configue">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="scatter volatilite implicte">
       <change beforePath="$PROJECT_DIR$/Bs1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bs1.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664977618173</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="scatter volatilite implicte">
+      <created>1664986893026</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1664986893026</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -99,6 +105,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="modification" />
     <MESSAGE value="configue" />
-    <option name="LAST_COMMIT_MESSAGE" value="configue" />
+    <MESSAGE value="scatter volatilite implicte" />
+    <option name="LAST_COMMIT_MESSAGE" value="scatter volatilite implicte" />
   </component>
 </project>
