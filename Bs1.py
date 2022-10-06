@@ -58,7 +58,6 @@ epsilon = 0.0001
 Vol = Find_volatility_implicite(t, So, K, T, r, M, epsilon)
 condition_arbitrage(Vol, K, M)
 Y = []
-Vola = []
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -66,9 +65,15 @@ ax = fig.add_subplot(111, projection='3d')
 for i in range(1, 13):
     Y.append(i / 12)
 
+Vola = np.zeros((len(K), len(Y)))
+
 for i in range(len(Y)):
-    Vola.append(Find_volatility_implicite(t, So, K, Y[i], r, M, epsilon))
-    ax.scatter(K, Y[i], Vola[i])
+    B = Find_volatility_implicite(t, So, K, Y[i], r, M, epsilon)
+    for j in range(len(K)):
+        Vola[j][i] = B[j]
+    ax.scatter(K, Y[i], B)
+
+"ax.plot_surface(K,Y, Vola)"
 
 ax.set_title("Volatilite implicite")
 ax.set_xlabel("K")
