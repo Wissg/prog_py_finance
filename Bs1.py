@@ -74,7 +74,7 @@ for i in range(len(Y)):
     B = Find_volatility_implicite(t, So, K, Y[i], r, M, epsilon)
     Vola.append(B)
     ax.scatter(K, Y[i], B)
-    
+
 ax.set_title("Volatilite implicite")
 ax.set_xlabel("K")
 ax.set_ylabel("T")
