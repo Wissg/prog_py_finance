@@ -62,18 +62,26 @@ Y = []
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-for i in range(1, 13):
+
+for i in range(1, 7):
     Y.append(i / 12)
 
-Vola = np.zeros((len(K), len(Y)))
+x , a =np.meshgrid(K,Y)
+
+Vola =[]
 
 for i in range(len(Y)):
     B = Find_volatility_implicite(t, So, K, Y[i], r, M, epsilon)
-    for j in range(len(K)):
-        Vola[j][i] = B[j]
+    Vola.append(B)
     ax.scatter(K, Y[i], B)
+    
+ax.set_title("Volatilite implicite")
+ax.set_xlabel("K")
+ax.set_ylabel("T")
+ax.set_zlabel("sigma")
+plt.show()
 
-"ax.plot_surface(K,Y, Vola)"
+ax.plot_surface(x,a, np.array(Vola))
 
 ax.set_title("Volatilite implicite")
 ax.set_xlabel("K")
