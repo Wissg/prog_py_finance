@@ -8,7 +8,7 @@ from mpl_toolkits import mplot3d
 import Bs
 
 
-data = pd.read_excel("h:\Downloads\GoogleOrig.xlsx")
+data = pd.read_excel("data\GoogleOrig.xlsx")
 print(data)
 r= 0.006
 t=0
@@ -21,9 +21,6 @@ T = data["Time"]
 data["sigmaC"]=0
 
 
-
-Vola = []
-Vola1 = []
 
 for i in range(0, len(M)):
     data.loc[i,"sigmaC"] = Bs.Find_volatility_implicite_fixe_Call(t, S, K[i], T[i], r, M[i], epsilon)

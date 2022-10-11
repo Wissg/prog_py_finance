@@ -30,12 +30,14 @@ def Vega(t, S, K, T, r, sigma):
     d1 = (np.log(S / K) + (r + sigma ** 2 / 2) * (T - t)) / (sigma * np.sqrt((T - t)))
     return S * np.sqrt(T - t) / np.sqrt(2 * np.pi) * np.exp(-d1 ** 2 / 2)
 
+
 def Delta(t, S, K, T, r, sigma):
     if t == T:
         return 1
     else:
         d1 = (np.log(S / K) + (r + sigma ** 2 / 2) * (T - t)) / (sigma * np.sqrt((T - t)))
     return N(d1)
+
 
 def test():
     S = np.zeros(101)
@@ -67,9 +69,7 @@ def F_Put(Marche, t, S, K, T, r, sigma):
 
 def Find_volatility_implicite_fixe_Call(t, S, K, T, r, M, epsilon):
     if M < S and M > max(S - K * np.exp(-r * T), 0):
-        print(t, S, K, T, r, M, epsilon)
-        sigma = np.sqrt(2 * (np.abs(np.log(S / K) + r * T)) / T)
-        print(sigma)
+        sigma = np.sqrt(2 * np.abs((np.log(S / K) + r * T) / T))
         while np.abs(F_Call(M, t, S, K, T, r, sigma)) > epsilon:
             sigma = sigma - (F_Call(M, t, S, K, T, r, sigma) / Vega(t, S, K, T, r, sigma))
         vol = sigma
@@ -87,7 +87,7 @@ def Find_volatility_implicite_fixe_Put(t, S, K, T, r, M, epsilon):
         sigma.append(np.sqrt(2 * np.abs(np.log(S / K) + r * T) / T))
         while np.abs(F_Put(M, t, S, K, T, r, sigma[len(sigma) - 1])) > epsilon:
             sigma.append(sigma[len(sigma) - 1] - (
-                        F_Put(M, t, S, K, T, r, sigma[len(sigma) - 1]) / Vega(t, S, K, T, r, sigma[len(sigma) - 1])))
+                    F_Put(M, t, S, K, T, r, sigma[len(sigma) - 1]) / Vega(t, S, K, T, r, sigma[len(sigma) - 1])))
         vol.append(sigma[len(sigma) - 1])
         sigma = []
     else:
