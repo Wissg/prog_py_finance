@@ -44,14 +44,18 @@ def test():
     S[0] = 1
     calls = []
     vegas = []
+    puts =[]
     calls.append(BS_CALL(0, S[0], 10, 1, 0.1, 0.5))
+    puts.append(BS_PUT(0, S[0], 10, 1, 0.1, 0.5))
     vegas.append(Vega(0, S[0], 10, 1, 0.1, 0.5))
     for i in range(1, 101, 1):
         S[i] = 0.2 * i
         calls.append(BS_CALL(0, S[i], 10, 1, 0.1, 0.5))
         vegas.append(Vega(0, S[i], 10, 1, 0.1, 0.5))
+        puts.append(BS_PUT(0, S[i], 10, 1, 0.1, 0.5))
 
     plt.plot(S, calls, label='Call Value')
+    plt.plot(S, puts, label='Put Value')
     plt.plot(S, vegas, label='Vega')
     plt.xlabel('$S_0$')
     plt.ylabel(' Value')
