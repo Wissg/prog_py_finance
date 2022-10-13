@@ -24,7 +24,7 @@ r = 0.0255
 data["sigmaC"] = 0
 data["T"] = 0
 for i in range(len(K)):
-    data.loc[i, "T"]=(((datetime.strptime(data.iloc[i, 0], "%d-%m-%y") - (datetime.strptime('10/10/2022', "%d/%m/%Y"))).days)/30/12)
+    data.loc[i, "T"] = (datetime.strptime(data.iloc[i, 0], "%d-%m-%y") - currentDate).days / 365
 
 for i in range(164, 340):
     data.loc[i, "sigmaC"] = Bs.Find_volatility_implicite_fixe_Call(t, So, K[i], data.loc[i, "T"], r, M[i], epsilon)
@@ -41,4 +41,3 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(data.loc[:, "T"], data.loc[:, "Strike"], data.loc[:, "sigmaC"])
 plt.show()
-

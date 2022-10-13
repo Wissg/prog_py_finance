@@ -30,13 +30,13 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Wiss/Documents/prog finance/volatility_CAC40.py"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Wiss/Documents/prog finance/volatility_CAC40.py&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.volatility_CAC40">
     <configuration name="Volatily_implicite_Call" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="prog finance" />
@@ -223,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665652578021</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="correction">
+      <created>1665658137018</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1665658137018</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
