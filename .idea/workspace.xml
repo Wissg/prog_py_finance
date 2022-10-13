@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="correction">
-      <change afterPath="$PROJECT_DIR$/volatility_CAC40.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/volatily_google.py" beforeDir="false" afterPath="$PROJECT_DIR$/volatility_google.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/volatility_CAC40.py" beforeDir="false" afterPath="$PROJECT_DIR$/volatility_CAC40.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665599976310</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="correction">
+      <created>1665652578021</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1665652578021</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
