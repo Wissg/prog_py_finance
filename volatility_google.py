@@ -23,7 +23,7 @@ for i in range(0, len(M)):
     data.loc[i, "sigmaC"] = Bs.Find_volatility_implicite_fixe_Call(t, S, K[i], T[i], r, M[i], epsilon)
 
 data = data[data.sigmaC != 0]
-plt.plot(data.loc[:49, "Strike"], data.loc[:49, "sigmaC"], label='Vol implicite Call')
+plt.plot(data.loc[:48, "Strike"], data.loc[:48, "sigmaC"], label='Vol implicite Call')
 plt.xlabel('K')
 plt.ylabel('Sigma')
 plt.legend()
