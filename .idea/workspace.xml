@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="correction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/volatility_google.py" beforeDir="false" afterPath="$PROJECT_DIR$/volatility_google.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/volatility_CAC40.py" beforeDir="false" afterPath="$PROJECT_DIR$/volatility_CAC40.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,14 +30,14 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Wiss/Documents/prog finance/volatility_google.py"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Wiss/Documents/prog finance/volatility_google.py&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Python.volatility_google">
+}</component>
+  <component name="RunManager" selected="Python.volatility_CAC40">
     <configuration name="Volatily_implicite_Call" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="prog finance" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -165,12 +165,12 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.volatility_K_list" />
-      <item itemvalue="Python.volatility_CAC40" />
-      <item itemvalue="Python.volatility_google" />
       <item itemvalue="Python.Volatily_implicite_Call" />
       <item itemvalue="Python.Volatity_implicite_Put" />
       <item itemvalue="Python.untitled19" />
+      <item itemvalue="Python.volatility_CAC40" />
+      <item itemvalue="Python.volatility_K_list" />
+      <item itemvalue="Python.volatility_google" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -259,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665672309987</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="correction">
+      <created>1665845134080</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1665845134080</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

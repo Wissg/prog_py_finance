@@ -23,14 +23,21 @@ K = data.iloc[:, 11]
 r = 0.0255
 data["sigmaC"] = 0
 data["T"] = 0
-for i in range(len(K)):
+j = 1
+z = data.loc[164, "Expiration Date"]
+for i in range(163, len(K)):
     data.loc[i, "T"] = (datetime.strptime(data.iloc[i, 0], "%d-%m-%y") - currentDate).days / 365
-
-for i in range(164, 340):
+    if z != data.loc[i, "Expiration Date"]:
+        j = j + 1
+        z = data.loc[i, "Expiration Date"]
+        print(i)
+    data.loc[i, "T"] = j / 365.22
+print(data["T"])
+for i in range(163, len(M)):
     data.loc[i, "sigmaC"] = Bs.Find_volatility_implicite_fixe_Call(t, So, K[i], data.loc[i, "T"], r, M[i], epsilon)
 
 data = data[data.sigmaC != 0]
-plt.plot(data.loc[164:340, "Strike"], data.loc[164:340, "sigmaC"], label='Vol implicite Call')
+plt.plot(data.loc[163:339, "Strike"], data.loc[163:339, "sigmaC"], label='Vol implicite Call')
 
 plt.xlabel('K')
 plt.ylabel('Sigma')
