@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="correction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Volatily_implicite_Call.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volatily_implicite_Call.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Volatity_implicite_Put.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volatity_implicite_Put.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/volatility_CAC40.py" beforeDir="false" afterPath="$PROJECT_DIR$/volatility_CAC40.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/volatility_google.py" beforeDir="false" afterPath="$PROJECT_DIR$/volatility_google.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +40,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Wiss/Documents/prog finance/volatility_google.py&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.volatility_CAC40">
+  <component name="RunManager" selected="Python.volatility_google">
     <configuration name="Volatily_implicite_Call" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="prog finance" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -266,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665845134080</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="correction">
+      <created>1666013199034</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1666013199034</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

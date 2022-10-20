@@ -39,5 +39,8 @@ plt.show()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(data.loc[:, "T"], data.loc[:, "K"], data.loc[:, "sigmaC"])
+ax.set_xlabel('T')
+ax.set_ylabel('K')
+ax.set_zlabel('sigma')
 plt.show()
 
