@@ -75,24 +75,24 @@ def portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc,mod):
                 P_actu[i + 1] = P[i + 1] - (P[0] - V[0]) * np.exp(r * t[i + 1])
                 Erreur[i + 1] = P_actu[i + 1] - V[i + 1]
             else:
-                S[i + 1] = S[i]
+                S[i + 1] = S[i] * np.exp((r - sigma ** 2 / 2) * delta_t + sigma * np.sqrt(delta_t) * np.random.randn(1))
                 A[i + 1] = A[i]
-                B[i + 1] = B[i]
-                P[i + 1] = P[i]
+                B[i + 1] = B[i] * (1 + r * delta_t)
+                P[i + 1] = A[i + 1] * S[i + 1] + B[i + 1]
                 V[i + 1] = Bs.BS_CALL(t[i + 1], S[i + 1], K, T, r, sigma)
-                P_actu[i + 1] = P_actu[i]
-                Erreur[i + 1] = Erreur[i]
+                P_actu[i + 1] = P[i + 1] - (P[0] - V[0]) * np.exp(r * t[i + 1])
+                Erreur[i + 1] = P_actu[i + 1] - V[i + 1]
         PL[k] = V[N - 1] - P_actu[N - 1]
     PL = np.sort(PL)
-    plt.plot(t, V, t, P_actu)
-    plt.show()
-
-    plt.plot(t, A, label='A')
-    plt.plot(t, B, label='B')
-    plt.xlabel('t')
-    plt.ylabel('A & B')
-    plt.legend()
-    plt.show()
+    # plt.plot(t, V, t, P_actu)
+    # plt.show()
+    #
+    # plt.plot(t, A, label='A')
+    # plt.plot(t, B, label='B')
+    # plt.xlabel('t')
+    # plt.ylabel('A & B')
+    # plt.legend()
+    # plt.show()
     return (PL)
 
 
@@ -115,15 +115,24 @@ N = 100
 sigma = 0.5
 Nmc = 1000
 ProfitandLoss = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 2)
+ProfitandLoss1 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 3)
+ProfitandLoss2 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 4)
 
 Repartition_Hedging = repartition(100, Nmc, ProfitandLoss)
+Repartition_Hedging1 = repartition(100, Nmc, ProfitandLoss1)
+Repartition_Hedging2 = repartition(100, Nmc, ProfitandLoss2)
 
 t = np.linspace(-0.3, 0.3, 100)
 plt.plot(t, Repartition_Hedging)
+plt.plot(t, Repartition_Hedging1)
+plt.plot(t, Repartition_Hedging2)
 plt.show()
 
 
-sns.histplot(ProfitandLoss, color="red", label="100% Equities", kde=True, stat="density", linewidth=0)
+sns.kdeplot(ProfitandLoss)
+sns.kdeplot(ProfitandLoss1)
+sns.kdeplot(ProfitandLoss2)
+plt.savefig('save_as_a_png.png')
 plt.show()
 
 # Calcul de la VaR
