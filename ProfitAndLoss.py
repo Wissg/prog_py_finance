@@ -114,7 +114,7 @@ T = 5
 N = 100
 sigma = 0.5
 Nmc = 1000
-ProfitandLoss = portefeuille_NMC
+ProfitandLoss = portefeuille_NMC(So, r, K, T, N, sigma, Nmc)
 ProfitandLoss1 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 2)
 ProfitandLoss2 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 4)
 
