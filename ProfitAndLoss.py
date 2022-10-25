@@ -103,7 +103,6 @@ def repartition(Nx, Nmc, PL):
         for n in range(0, Nmc):
             if PL[n] < -0.3 + (0.6 / Nx) * (i - 1):
                 compteur = compteur + 1
-                # print(compteur)
         F[i] = compteur / Nmc
     return (F)
 
