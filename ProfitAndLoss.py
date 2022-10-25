@@ -114,8 +114,8 @@ T = 5
 N = 100
 sigma = 0.5
 Nmc = 1000
-ProfitandLoss = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 2)
-ProfitandLoss1 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 3)
+ProfitandLoss = portefeuille_NMC
+ProfitandLoss1 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 2)
 ProfitandLoss2 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 4)
 
 Repartition_Hedging = repartition(100, Nmc, ProfitandLoss)
@@ -129,9 +129,10 @@ plt.plot(t, Repartition_Hedging2)
 plt.show()
 
 
-sns.kdeplot(ProfitandLoss)
-sns.kdeplot(ProfitandLoss1)
-sns.kdeplot(ProfitandLoss2)
+sns.kdeplot(ProfitandLoss, label='edging chaque dt')
+sns.kdeplot(ProfitandLoss1, label='1 fois sur 2')
+sns.kdeplot(ProfitandLoss2, label='1 fois sur 4')
+plt.legend()
 plt.savefig('save_as_a_png.png')
 plt.show()
 
