@@ -53,12 +53,13 @@ def portefeuille_volatilite_implicite(So, r, K, T, N, Nmc, sigma):
             S[i + 1] = S[i] * np.exp((r - sigma[i + 1] ** 2 / 2) * delta_t + sigma[i + 1] * np.sqrt(delta_t) * np.random.randn(1))
             A[i + 1] = Bs.Delta(t[i + 1], S[i + 1], K, T, r, sigma[i + 1])
             B[i + 1] = (A[i] - A[i + 1]) * S[i + 1] + B[i] * (1 + r * delta_t)
-            P[i + 1] = A[i + 1] * S[i + 1] + B[i + 1]
+            P[i + 1] = A[i + 1] * S[i + 1] + B[i + 1] * (1 + r * delta_t)
             V[i + 1] = Bs.BS_CALL(t[i + 1], S[i + 1], K, T, r, sigma[i + 1])
             P_actu[i + 1] = P[i + 1] - (P[0] - V[0]) * np.exp(r * t[i + 1])
             Erreur[i + 1] = P_actu[i + 1] - V[i + 1]
             W[i + 1] = (A[i + 1] * S[i + 1]) / P_actu[i + 1]
         PL[k] = V[N - 1] - P_actu[N - 1]
+        PL[k] = P_actu[N - 1] - np.max(S[N - 1]-K,0)
     PL = np.sort(PL)
 
     plt.plot(t, sigma)
@@ -75,7 +76,7 @@ K = 1.5
 T = 5
 N = 100
 sigma = np.zeros(N + 1)
-Nmc = 100
+Nmc = 1000
 for i in range(0,N+1):
     sigma[i] = sig()
 
@@ -88,6 +89,7 @@ for i in range(1,N+1):
     sigma[i] = sigmasaut(sigma[i - 1])
 
 ProfitandLoss = portefeuille_volatilite_implicite(So, r, K, T, N, Nmc, sigma)
+
 
 sns.kdeplot(ProfitandLoss1)
 plt.show()
