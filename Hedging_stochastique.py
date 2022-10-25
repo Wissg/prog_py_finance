@@ -75,15 +75,19 @@ K = 1.5
 T = 5
 N = 100
 sigma = np.zeros(N + 1)
-Nmc = 1000
+Nmc = 100
 for i in range(0,N+1):
     sigma[i] = sig()
 
-ProfitandLoss = portefeuille_volatilite_implicite(So, r, K, T, N, Nmc, sigma)
+ProfitandLoss1 = portefeuille_volatilite_implicite(So, r, K, T, N, Nmc, sigma)
 sigma[0] = 0.3
+sns.kdeplot(ProfitandLoss1)
+plt.show()
+
 for i in range(1,N+1):
     sigma[i] = sigmasaut(sigma[i - 1])
 
 ProfitandLoss = portefeuille_volatilite_implicite(So, r, K, T, N, Nmc, sigma)
-sns.kdeplot(ProfitandLoss)
+
+sns.kdeplot(ProfitandLoss1)
 plt.show()
