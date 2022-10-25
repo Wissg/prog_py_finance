@@ -129,7 +129,7 @@ plt.plot(t, Repartition_Hedging2)
 plt.show()
 
 
-sns.kdeplot(ProfitandLoss, label='edging chaque dt')
+sns.kdeplot(ProfitandLoss, label='hedging chaque dt')
 sns.kdeplot(ProfitandLoss1, label='1 fois sur 2')
 sns.kdeplot(ProfitandLoss2, label='1 fois sur 4')
 plt.legend()
