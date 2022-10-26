@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="correction">
+    <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="correction a verifier">
+      <change beforePath="$PROJECT_DIR$/.idea/prog finance.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prog finance.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hedging.py" beforeDir="false" afterPath="$PROJECT_DIR$/Hedging.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hedging_stochastique.py" beforeDir="false" afterPath="$PROJECT_DIR$/Hedging_stochastique.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProfitAndLoss.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProfitAndLoss.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphe_Wi.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,13 +32,13 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Wiss/Documents/prog finance/ProfitAndLoss.py"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Wiss/Documents/prog finance/ProfitAndLoss.py&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.Hedging_stochastique">
     <configuration name="Hedging" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="prog finance" />
@@ -167,27 +166,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="graphe_Wi" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="prog finance" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Program Files\Python310\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/graphe_Wi.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="volatility_CAC40" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="prog finance" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -256,7 +234,6 @@
       <item itemvalue="Python.Volatity_implicite_Put" />
       <item itemvalue="Python.volatility_CAC40" />
       <item itemvalue="Python.Hedging" />
-      <item itemvalue="Python.graphe_Wi" />
       <item itemvalue="Python.Hedging_stochastique" />
       <item itemvalue="Python.ProfitAndLoss" />
       <item itemvalue="Python.volatility_K_list" />
@@ -363,7 +340,49 @@
       <option name="project" value="LOCAL" />
       <updated>1666013199034</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="correction">
+      <created>1666721180234</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1666721180234</updated>
+    </task>
+    <task id="LOCAL-00015" summary="correction">
+      <created>1666723350076</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1666723350076</updated>
+    </task>
+    <task id="LOCAL-00016" summary="correction">
+      <created>1666724545790</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1666724545790</updated>
+    </task>
+    <task id="LOCAL-00017" summary="correction">
+      <created>1666724622080</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1666724622080</updated>
+    </task>
+    <task id="LOCAL-00018" summary="correction">
+      <created>1666725054988</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1666725054988</updated>
+    </task>
+    <task id="LOCAL-00019" summary="correction a verifier">
+      <created>1666732563638</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1666732563638</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -382,6 +401,7 @@
     <MESSAGE value="configue" />
     <MESSAGE value="scatter volatilite implicte" />
     <MESSAGE value="correction" />
-    <option name="LAST_COMMIT_MESSAGE" value="correction" />
+    <MESSAGE value="correction a verifier" />
+    <option name="LAST_COMMIT_MESSAGE" value="correction a verifier" />
   </component>
 </project>

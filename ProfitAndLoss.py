@@ -70,7 +70,7 @@ def portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc,mod):
                 S[i + 1] = S[i] * np.exp((r - sigma ** 2 / 2) * delta_t + sigma * np.sqrt(delta_t) * np.random.randn(1))
                 A[i + 1] = Bs.Delta(t[i + 1], S[i + 1], K, T, r, sigma)
                 B[i + 1] = (A[i] - A[i + 1]) * S[i + 1] + B[i] * (1 + r * delta_t)
-                P[i + 1] = A[i + 1] * S[i + 1] + B[i + 1]
+                P[i + 1] = A[i] * S[i + 1] + B[i + 1]* (1 + r * delta_t)
                 V[i + 1] = Bs.BS_CALL(t[i + 1], S[i + 1], K, T, r, sigma)
                 P_actu[i + 1] = P[i + 1] - (P[0] - V[0]) * np.exp(r * t[i + 1])
                 Erreur[i + 1] = P_actu[i + 1] - V[i + 1]
