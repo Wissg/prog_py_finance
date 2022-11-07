@@ -123,9 +123,11 @@ Repartition_Hedging1 = repartition(100, Nmc, ProfitandLoss1)
 Repartition_Hedging2 = repartition(100, Nmc, ProfitandLoss2)
 
 t = np.linspace(-0.3, 0.3, 100)
-plt.plot(t, Repartition_Hedging)
-plt.plot(t, Repartition_Hedging1)
-plt.plot(t, Repartition_Hedging2)
+plt.plot(t, Repartition_Hedging, label='hedging chaque dt')
+plt.plot(t, Repartition_Hedging1, label='1 fois sur 2')
+plt.plot(t, Repartition_Hedging2, label='1 fois sur 4')
+plt.legend()
+plt.savefig('density.png')
 plt.show()
 
 
@@ -133,7 +135,7 @@ sns.kdeplot(ProfitandLoss, label='hedging chaque dt')
 sns.kdeplot(ProfitandLoss1, label='1 fois sur 2')
 sns.kdeplot(ProfitandLoss2, label='1 fois sur 4')
 plt.legend()
-plt.savefig('save_as_a_png.png')
+plt.savefig('integral.png')
 plt.show()
 
 # Calcul de la VaR
