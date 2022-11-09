@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="correction">
-      <change afterPath="$PROJECT_DIR$/Hedging_historique.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/prog finance.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prog finance.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Yield.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hedging_stochastique.py" beforeDir="false" afterPath="$PROJECT_DIR$/Hedging_stochastique.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProfitAndLoss.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProfitAndLoss.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,14 +32,14 @@
     <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Hedging_historique.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Yield.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\CYTech Student\PycharmProjects\prog_py_finance\Graph" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Hedging_historique">
+  <component name="RunManager" selected="Python.Yield">
     <configuration name="Hedging" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="prog finance" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -170,6 +166,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Yield" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="prog finance" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Program Files\Python38\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Yield.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="graphe_Wi" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="prog finance" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -279,6 +296,7 @@
       <item itemvalue="Python.Hedging" />
       <item itemvalue="Python.Hedging_stochastique" />
       <item itemvalue="Python.Hedging_historique" />
+      <item itemvalue="Python.Yield" />
       <item itemvalue="Python.ProfitAndLoss" />
       <item itemvalue="Python.Volatily_implicite_Call" />
       <item itemvalue="Python.Volatity_implicite_Put" />
@@ -396,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666627969926</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="++">
+      <created>1667817508156</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1667817508156</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
