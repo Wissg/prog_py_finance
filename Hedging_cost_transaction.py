@@ -64,23 +64,24 @@ K = [80, 90, 100, 110, 120]
 T = 1
 # N = 100
 sigma = 0.25  # volatility 25%
-Nmc = 100
+Nmc = 1000
 k0 = 0.01
 
 List_N = [260, 520, 1040, 4160, 8320]
-ProfitandLoss = [0] * len(List_N)
+ValueAtRisk = [0] * len(List_N)
 for j in K:
     for i in range(len(List_N)):
-        ProfitandLoss[i] = portefeuille_NMC(So, r, K[j], T, List_N[i], sigma, Nmc, k0)
-    plt.scatter(List_N, ProfitandLoss, label=j)
-    max_value = max(ProfitandLoss)
-    max_index = ProfitandLoss.index(max_value)
-    print("K = ", K[j], "N = ", max_index)
+        ValueAtRisk[i] = portefeuille_NMC(So, r, j, T, List_N[i], sigma, Nmc, k0)
+    plt.scatter(List_N, ValueAtRisk, label="K = "+str(j))
+    max_value = max(ValueAtRisk)
+    max_index = ValueAtRisk.index(max_value)
+    print("K = ", j, "N = ", List_N[max_index])
 
 
 plt.title("Value at risk for different trading frequencies")
 plt.xlabel("Rebalance number")
 plt.ylabel("Value at risk")
-plt.legend
+plt.savefig('Graph\Value-at-risk-for-different-trading-frequencies.png')
+plt.legend()
 plt.show()
 

@@ -127,7 +127,7 @@ plt.plot(t, Repartition_Hedging, label='hedging chaque dt')
 plt.plot(t, Repartition_Hedging1, label='1 fois sur 2')
 plt.plot(t, Repartition_Hedging2, label='1 fois sur 4')
 plt.legend()
-plt.savefig('density.png')
+plt.savefig('Graph\density.png')
 plt.show()
 
 
@@ -135,7 +135,7 @@ sns.kdeplot(ProfitandLoss, label='hedging chaque dt')
 sns.kdeplot(ProfitandLoss1, label='1 fois sur 2')
 sns.kdeplot(ProfitandLoss2, label='1 fois sur 4')
 plt.legend()
-plt.savefig('integral.png')
+plt.savefig('Graph\integral.png')
 plt.show()
 
 # Calcul de la VaR

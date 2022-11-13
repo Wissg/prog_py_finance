@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="correction a verifier">
-      <change afterPath="$PROJECT_DIR$/Hedging_cost_transaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/prog finance.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prog finance.iml" afterDir="false" />
+    <list default="true" id="9d8ec08b-9629-42fc-86e4-81b0fd398baf" name="Changes" comment="++">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hedging_cost_transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Hedging_cost_transaction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProfitAndLoss.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProfitAndLoss.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -438,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666732563638</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="++">
+      <created>1668344855865</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1668344855865</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,6 +467,7 @@
     <MESSAGE value="scatter volatilite implicte" />
     <MESSAGE value="correction" />
     <MESSAGE value="correction a verifier" />
-    <option name="LAST_COMMIT_MESSAGE" value="correction a verifier" />
+    <MESSAGE value="++" />
+    <option name="LAST_COMMIT_MESSAGE" value="++" />
   </component>
 </project>
