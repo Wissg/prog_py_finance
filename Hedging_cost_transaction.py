@@ -33,7 +33,7 @@ def portefeuille_NMC(So, r, K, T, N, sigma, Nmc, k0):
             S[i + 1] = S[i] * np.exp((r - sigma ** 2 / 2) * delta_t + sigma * np.sqrt(delta_t) * np.random.randn(1))
             A[i + 1] = Bs.Delta(t[i + 1], S[i + 1], K, T, r, adjustedVolatility)
             B[i + 1] = (A[i] - A[i + 1]) * S[i + 1] + B[i] * (1 + r * delta_t) - k0 * abs((A[i] - A[i + 1])) * S[i + 1]
-            P[i + 1] = A[i] * S[i + 1] + B[i + 1] * (1 + r * delta_t)
+            P[i + 1] = A[i] * S[i + 1] + B[i + 1]
             V[i + 1] = Bs.BS_CALL(t[i + 1], S[i + 1], K, T, r, adjustedVolatility)
             P_actu[i + 1] = P[i + 1] - (P[0] - V[0]) * np.exp(r * t[i + 1])
             Erreur[i + 1] = P_actu[i + 1] - V[i + 1]
@@ -61,27 +61,25 @@ def portefeuille_NMC(So, r, K, T, N, sigma, Nmc, k0):
 So = 100
 r = 0.05  # interest rate 5%
 K = [80, 90, 100, 110, 120]
-T = 1
+T = 5
 # N = 100
 sigma = 0.25  # volatility 25%
 Nmc = 1000
 k0 = 0.01
 
-List_N = [260, 520, 1040, 4160, 8320]
+List_N = np.arange(1, 50)
 ValueAtRisk = [0] * len(List_N)
 for j in K:
     for i in range(len(List_N)):
         ValueAtRisk[i] = portefeuille_NMC(So, r, j, T, List_N[i], sigma, Nmc, k0)
-    plt.scatter(List_N, ValueAtRisk, label="K = "+str(j))
+    plt.plot(List_N, ValueAtRisk, label="K = " + str(j))
     max_value = max(ValueAtRisk)
     max_index = ValueAtRisk.index(max_value)
     print("K = ", j, "N = ", List_N[max_index])
 
-
 plt.title("Value at risk for different trading frequencies")
 plt.xlabel("Rebalance number")
 plt.ylabel("Value at risk")
-plt.savefig('Graph\Value-at-risk-for-different-trading-frequencies.png')
 plt.legend()
+plt.savefig('Graph\Value-at-risk-for-different-trading-frequencies.png', bbox_inches="tight")
 plt.show()
-
