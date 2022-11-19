@@ -28,6 +28,16 @@ def sigmasaut(a):
         else:
             return 0.3
 
+def repartition(Nx, Nmc, PL):
+    F = np.zeros(Nx)
+    for i in range(0, Nx):
+        compteur = 0
+        for n in range(0, Nmc):
+            if PL[n] < -0.3 + (0.6 / Nx) * (i - 1):
+                compteur = compteur + 1
+        F[i] = compteur / Nmc
+    return (F)
+
 
 def portefeuille_volatilite_implicite_sig(So, r, K, T, N, Nmc, sigma):
     A = np.zeros(N + 1)
@@ -61,10 +71,13 @@ def portefeuille_volatilite_implicite_sig(So, r, K, T, N, Nmc, sigma):
             Erreur[i + 1] = P_actu[i + 1] - V[i + 1]
             W[i + 1] = (A[i + 1] * S[i + 1]) / P_actu[i + 1]
         PL[k] = P_actu[N - 1] - V[N - 1]
-        espPL = PL[k]
         # PL[k] = P_actu[N - 1] - np.max(S[N - 1] - K, 0)
-    espPL = espPL/Nmc
-    print("Esperance PL", espPL)
+        plt.plot(t, S)
+        plt.xlabel("Temps")
+        plt.ylabel("Valeur de l'actif")
+        plt.title("Nmc chemins du prix de l'actif model 1")
+    plt.savefig('Graph\multi_path_model_1.png')
+    plt.show()
     PL = np.sort(PL)
 
     plt.plot(sigma)
@@ -110,6 +123,12 @@ def portefeuille_volatilite_implicite_sigsaut(So, r, K, T, N, Nmc, sigma):
             W[i + 1] = (A[i + 1] * S[i + 1]) / P_actu[i + 1]
         PL[k] = P_actu[N - 1] - V[N - 1]
         # PL[k] = P_actu[N - 1] - np.max(S[N - 1] - K, 0)
+        plt.plot(t, S)
+        plt.xlabel("Temps")
+        plt.ylabel("Valeur de l'actif")
+        plt.title("Nmc chemins du prix de l'actif model 2")
+    plt.savefig('Graph\multi_path_model_2.png')
+    plt.show()
     PL = np.sort(PL)
 
     plt.plot(sigma)
@@ -126,6 +145,7 @@ K = 1.5
 T = 5
 N = 100
 Nmc = 1000
+t = np.linspace(-0.3, 0.3, 100)
 sigma = np.zeros(Nmc + 1)
 sigma[0] = 0.5
 for i in range(1, Nmc + 1):
@@ -133,6 +153,18 @@ for i in range(1, Nmc + 1):
 
 ProfitandLoss1 = portefeuille_volatilite_implicite_sig(So, r, K, T, N, Nmc, sigma)
 sns.kdeplot(ProfitandLoss1)
+plt.xlabel("P&L")
+plt.ylabel("Valeur")
+plt.title("Fonction de densite volatilite implicite")
+plt.savefig('Graph\densite_volatilite_implicite_0-3_0-5.png')
+plt.show()
+
+Repartition_Hedging1 = repartition(100, Nmc, ProfitandLoss1)
+plt.plot(t, Repartition_Hedging1)
+plt.xlabel("P&L")
+plt.ylabel("Valeur")
+plt.title("Fonction de repatition volatilite implicite")
+plt.savefig('Graph\\repatition_volatilite_implicite_0-3_0-5.png')
 plt.show()
 
 for i in range(1, Nmc + 1):
@@ -141,4 +173,16 @@ for i in range(1, Nmc + 1):
 ProfitandLoss2 = portefeuille_volatilite_implicite_sigsaut(So, r, K, T, N, Nmc, sigma)
 
 sns.kdeplot(ProfitandLoss2)
+plt.xlabel("P&L")
+plt.ylabel("Valeur")
+plt.title("Fonction de densite volatilite implicite avec transition")
+plt.savefig('Graph\densite_volatilite_implicite_0-3_0-5+transition.png')
+plt.show()
+
+Repartition_Hedging2 = repartition(100, Nmc, ProfitandLoss2)
+plt.plot(t, Repartition_Hedging2)
+plt.xlabel("P&L")
+plt.ylabel("Valeur")
+plt.title("Fonction de repatition volatilite implicite avec transition")
+plt.savefig('Graph\\repatition_volatilite_implicite_0-3_0-5+transition.png')
 plt.show()

@@ -30,22 +30,30 @@ def portefeuille(So, r, K, T, N, sigma):
         W[i + 1] = (A[i + 1] * S[i + 1]) / P_actu[i + 1]
         Erreur[i + 1] = P_actu[i + 1] - V[i + 1]
 
-    plt.plot(t, V, t, P_actu)
+    plt.plot(t, V, label="V")
+    plt.plot(t,P_actu, label="P Actulise")
     plt.xlabel("Temps")
     plt.ylabel("Valeur")
-    plt.title("Evolution de la valeur de l'option et du replicating portfolio")
+    plt.title("Evolution de la valeur de l'option et du portefeuille de replication")
+    plt.legend()
+    plt.savefig('Graph\Evolution_de_la_valeur_de_l_option_et_du_portefeuille_de_replication')
     plt.show()
 
-    plt.plot(t, A, t, B)
+    plt.plot(t, A, label="A")
+    plt.plot(t, B, label="B")
     plt.xlabel("Temps")
     plt.ylabel("Valeur")
     plt.title("Evolution de la quantité d'option et de la valeur du cash")
+    plt.legend()
+    plt.savefig('Graph\Evolution_de_la_quantité_d_option_et_de_la_valeur_du_cash')
     plt.show()
 
     plt.plot(t, Erreur)
     plt.xlabel("Temps")
     plt.ylabel("Valeur")
-    plt.title("Erreur du replicating portfolio")
+    plt.title("Erreur du portefeuille de replication")
+    plt.legend()
+    plt.savefig('Graph\Erreur_du_portefeuille_de_replication')
     plt.show()
 
     plt.plot(t, W)
