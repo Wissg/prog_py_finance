@@ -38,6 +38,13 @@ def Delta(t, S, K, T, r, sigma):
         d1 = (np.log(S / K) + (r + sigma ** 2 / 2) * (T - t)) / (sigma * np.sqrt((T - t)))
     return N(d1)
 
+def Gamma(t, S, K, T, r, sigma):
+    if t == T:
+        return 1
+    else:
+        d1 = (np.log(S / K) + (r + sigma ** 2 / 2) * (T - t)) / (sigma * np.sqrt((T - t)))
+    return norm.pdf(d1) / (S * sigma * np.sqrt(T))
+
 
 def test():
     S = np.zeros(101)
