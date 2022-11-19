@@ -67,7 +67,7 @@ def portefeuille_NMC(So, r, K, T, N, sigma, Nmc, k0):
 
 So = 100
 r = 0.05  # interest rate 5%
-K = [80]
+K = [80, 100, 110]
 T = 5
 # N = 100
 sigma = 0.25  # volatility 25%
