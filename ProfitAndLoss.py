@@ -71,18 +71,18 @@ def portefeuille_NMC(So, r, K, T, N, sigma, Nmc):
     print("Esperance de PL = ", espPL)
     print("Variance de PL = ", varPL)
     # fontion python calcul variance et esperance
-    # print("Esperance de PL = ", np.mean(PL))
-    # print("Variance de PL = ", np.std(PL)**2)
+    print("Esperance de PL = ", np.mean(PL))
+    print("Variance de PL = ", np.std(PL)**2)
     print("Esperance de St = ", espS)
     print("Variance de St = ", varS)
     print("Esperance theorique de St = ", EsperanceTheorique)
     print("Variance theorique de St = ", VarianceTheorique)
 
-    # plt.plot(t, Erreur)
-    # plt.xlabel("Temps")
-    # plt.ylabel("Valeur")
-    # plt.title("Erreur du replicating portfolio")
-    # plt.show()
+    plt.plot(t, Erreur)
+    plt.xlabel("Temps")
+    plt.ylabel("Valeur")
+    plt.title("Erreur du replicating portfolio")
+    plt.show()
 
     return (PL)
 
@@ -134,14 +134,14 @@ def portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, mod):
     # plt.plot(t, V, t, P_actu)
     # plt.show()
     #
-    # plt.plot(t, A, label='A')
-    # plt.plot(t, B, label='B')
-    # plt.xlabel('t')
-    # plt.ylabel('Valeur')
-    # plt.title("ratio de la couverture N trading = 10")
-    # plt.legend()
-    # plt.savefig('Graph\\ratio_de_la_couverture')
-    # plt.show()
+    plt.plot(t, A, label='A')
+    plt.plot(t, B, label='B')
+    plt.xlabel('t')
+    plt.ylabel('Valeur')
+    plt.title("ratio de la couverture N trading = 10")
+    plt.legend()
+    plt.savefig('Graph\\ratio_de_la_couverture')
+    plt.show()
 
     return (PL)
 
@@ -166,20 +166,20 @@ sigma = 0.5
 Nmc = 1000
 t = np.linspace(-0.3, 0.3, 100)
 
-# ProfitandLoss = portefeuille_NMC(So, r, K, T, N, sigma, Nmc)
-# Repartition_Hedging = repartition(100, Nmc, ProfitandLoss)
-# plt.plot(t, Repartition_Hedging, label='hedging chaque dt')
-# plt.xlabel("P&L")
-# plt.ylabel("Valeur")
-# plt.title("Fonction de repartition")
-# plt.savefig('Graph\integral_chaque_dt.png')
-# plt.show()
-# sns.kdeplot(ProfitandLoss, label='hedging chaque dt')
-# plt.xlabel("P&L")
-# plt.ylabel("Valeur")
-# plt.title("Fonction de densite")
-# plt.savefig('Graph\density_chaque_dt.png')
-# plt.show()
+ProfitandLoss = portefeuille_NMC(So, r, K, T, N, sigma, Nmc)
+Repartition_Hedging = repartition(100, Nmc, ProfitandLoss)
+plt.plot(t, Repartition_Hedging, label='hedging chaque dt')
+plt.xlabel("P&L")
+plt.ylabel("Valeur")
+plt.title("Fonction de repartition")
+plt.savefig('Graph\integral_chaque_dt.png')
+plt.show()
+sns.kdeplot(ProfitandLoss, label='hedging chaque dt')
+plt.xlabel("P&L")
+plt.ylabel("Valeur")
+plt.title("Fonction de densite")
+plt.savefig('Graph\density_chaque_dt.png')
+plt.show()
 
 PL10 =portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 10)
 # Calcul de la VaR
@@ -216,61 +216,62 @@ plt.legend()
 plt.savefig('Graph\integral_chaque_dt+VaR.png')
 plt.show()
 
-# listN = [100, 50, 25, 20, 5, 2, 1]
-# ProfitandLossfreq = [0] * len(listN)
-# VarPL = [0] * len(listN)
-# EspPL = [0] * len(listN)
-# for j in range(len(listN)):
-#     ProfitandLossfreq[j] = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, N / listN[j])
-#     VarPL[j] = np.std(ProfitandLossfreq[j]) ** 2
-#     EspPL[j] = np.mean(ProfitandLossfreq[j])
-#
-# plt.plot(listN, EspPL)
-# plt.xlabel("N trading")
-# plt.ylabel("Moyenne")
-# plt.title("Moyenne P&L en fonction du nombre de rebalancement")
-# plt.savefig('Graph\Moyenne_P&L_en_fonction_du_nombre_de_rebalancement.png')
-# plt.show()
-# plt.plot(listN, VarPL)
-# plt.xlabel("N trading")
-# plt.ylabel("Variance")
-# plt.title("Variance P&L en fonction du nombre de rebalancement")
-# plt.savefig('Graph\Variance_P&L_en_fonction_du_nombre_de_rebalancement.png')
-# plt.show()
+listN = [100, 50, 25, 20, 5, 2, 1]
+ProfitandLossfreq = [0] * len(listN)
+VarPL = [0] * len(listN)
+EspPL = [0] * len(listN)
+for j in range(len(listN)):
+    ProfitandLossfreq[j] = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, N / listN[j])
+    VarPL[j] = np.std(ProfitandLossfreq[j]) ** 2
+    EspPL[j] = np.mean(ProfitandLossfreq[j])
 
-# ProfitandLoss1 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 2)
-# ProfitandLoss2 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 4)
-#
-# Repartition_Hedging = repartition(100, Nmc, ProfitandLoss)
-# Repartition_Hedging1 = repartition(100, Nmc, ProfitandLoss1)
-# Repartition_Hedging2 = repartition(100, Nmc, ProfitandLoss2)
-# plt.plot(t, Repartition_Hedging, label='hedging chaque dt')
-# plt.plot(t, Repartition_Hedging1, label='1 fois sur 2')
-# plt.plot(t, Repartition_Hedging2, label='1 fois sur 4')
-# plt.xlabel("P&L")
-# plt.ylabel("Valeur")
-# plt.title("Fonction de repartiton")
-# plt.legend()
-# plt.savefig('Graph\density.png')
-# plt.show()
-#
-# sns.kdeplot(ProfitandLoss, label='hedging chaque dt')
-# sns.kdeplot(ProfitandLoss1, label='1 fois sur 2')
-# sns.kdeplot(ProfitandLoss2, label='1 fois sur 4')
-# plt.xlabel("P&L")
-# plt.ylabel("Valeur")
-# plt.title("Fonction de densite")
-# plt.legend()
-# plt.savefig('Graph\integral.png')
-# plt.show()
-#
-# # Calcul de la VaR
-#
-# alpha = 0.1
-#
-# Index = floor(alpha * Nmc)
-# VaR = ProfitandLoss[Index]
-#
-# stats.probplot(ProfitandLoss, dist="norm", plot=pylab)
-# pylab.show()
-# print("Value at Risk =", VaR)
+plt.plot(listN, EspPL)
+plt.xlabel("N trading")
+plt.ylabel("Moyenne")
+plt.title("Moyenne P&L en fonction du nombre de rebalancement")
+plt.savefig('Graph\Moyenne_P&L_en_fonction_du_nombre_de_rebalancement.png')
+plt.show()
+plt.plot(listN, VarPL)
+plt.xlabel("N trading")
+plt.ylabel("Variance")
+plt.title("Variance P&L en fonction du nombre de rebalancement")
+plt.savefig('Graph\Variance_P&L_en_fonction_du_nombre_de_rebalancement.png')
+plt.show()
+
+ProfitandLoss1 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 2)
+ProfitandLoss2 = portefeuille_NMC_Freq(So, r, K, T, N, sigma, Nmc, 4)
+
+Repartition_Hedging = repartition(100, Nmc, ProfitandLoss)
+Repartition_Hedging1 = repartition(100, Nmc, ProfitandLoss1)
+Repartition_Hedging2 = repartition(100, Nmc, ProfitandLoss2)
+plt.plot(t, Repartition_Hedging, label='hedging chaque dt')
+plt.plot(t, Repartition_Hedging1, label='1 fois sur 2')
+plt.plot(t, Repartition_Hedging2, label='1 fois sur 4')
+plt.xlabel("P&L")
+plt.ylabel("Valeur")
+plt.title("Fonction de repartiton")
+plt.legend()
+plt.savefig('Graph\density.png')
+plt.show()
+
+sns.kdeplot(ProfitandLoss, label='hedging chaque dt')
+sns.kdeplot(ProfitandLoss1, label='1 fois sur 2')
+sns.kdeplot(ProfitandLoss2, label='1 fois sur 4')
+plt.xlabel("P&L")
+plt.ylabel("Valeur")
+plt.title("Fonction de densite")
+plt.legend()
+plt.savefig('Graph\integral.png')
+plt.show()
+
+# Calcul de la VaR
+
+alpha = 0.1
+
+Index = floor(alpha * Nmc)
+VaR = ProfitandLoss[Index]
+
+stats.probplot(ProfitandLoss, dist="norm", plot=pylab)
+plt.savefig("Graph\quantile.png")
+pylab.show()
+print("Value at Risk =", VaR)
