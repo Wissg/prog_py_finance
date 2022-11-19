@@ -100,7 +100,7 @@ K = 1.5
 T = 5
 Nmc = 1000
 sigma = 0.5
-sigmah = 0.4
+sigmah = 0.3
 N = 100
 
 ProfitandLoss1 = portefeuille_historique(So, r, K, T, N, sigma, sigmah, Nmc)
@@ -111,7 +111,7 @@ plt.title("Fonction de densite volatilite implicite= 0,5 et historique= 0,3")
 plt.savefig('Graph\portefeuille_historique_0-5_0-4.png')
 plt.show()
 
-sigma = 0.4
+sigma = 0.3
 sigmah = 0.5
 ProfitandLoss = portefeuille_historique(So, r, K, T, N, sigma, sigmah, Nmc)
 sns.kdeplot(ProfitandLoss)
@@ -122,14 +122,17 @@ plt.savefig('Graph\portefeuille_historique_0-4_0-5.png')
 plt.show()
 
 
+sigma = 0.3
 sigmah = np.zeros(N + 1)
 for i in range(1, N + 1):
     sigmah[i] = sig()
 
 ProfitandLoss3 = portefeuille_volatilite_implicite_sig_historique(So, r, K, T, N, Nmc, sigma, sigmah)
+
+sns.kdeplot(ProfitandLoss3)
+plt.axvline(x=0, color='r', linestyle='--')
 plt.xlabel("P&L")
 plt.ylabel("Valeur")
 plt.title("Fonction de implicite= 0,5 et historique suit model 1")
-sns.kdeplot(ProfitandLoss3)
 plt.savefig('Graph\portefeuille_sig_historique_stoch.png')
 plt.show()
