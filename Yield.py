@@ -41,7 +41,7 @@ def Calibration_yield(Ym, T, epsilon, t, r, lamb, etha, gamma, sigma):
     Res = [0] * 10
     Yth = [0] * 10
     Jacobien = np.zeros(shape=(10, 3))
-    d = [1,1,1]
+    d = [1, 1, 1]
     while np.linalg.norm(d, 2) > epsilon:
         for p in range(len(T)):
             tau = T[p] - t
@@ -51,25 +51,64 @@ def Calibration_yield(Ym, T, epsilon, t, r, lamb, etha, gamma, sigma):
             Jacobien[p, 1] = -1 * ((1 / (tau * gamma)) * (
                     (B(t, T[p], gamma) - tau) / (2 * gamma) + ((B(t, T[p], gamma) ** 2) / 4)))
             Jacobien[p, 2] = 1 / tau * (
-                        A_derivative(gamma, np.sqrt(sigma), etha, t, T[p]) - r * B_derivative(gamma, t, T[p]))
+                    A_derivative(gamma, np.sqrt(sigma), etha, t, T[p]) - r * B_derivative(gamma, t, T[p]))
 
         d = -np.dot(np.linalg.inv(np.dot(Jacobien.T, Jacobien) + lamb * np.identity(3)),
                     np.dot(Jacobien.T, Res))
         etha = etha + d[0]
         sigma = sigma + d[1]
         gamma = gamma + d[2]
-
-    plt.plot(T, Ym, label='Market Yields')
+    print('etha = ', etha, ' sigma =', sigma, ' gamma = ', gamma)
+    plt.scatter(T, Ym, label='Market Yields')
     plt.plot(T, Yth, label='Vasicek Yields')
     plt.legend()
     plt.show()
-    return 0
+    return Yth
+
+
+def Calibrition_historical(N, T, epsilon, lamb, etha, gamma, sigma):
+    r = np.zeros(N)
+    delta_t = T / N
+
+    Res = [0] * N
+    Jacobien = np.zeros(shape=(N, 2))
+    for i in range(N - 1):
+        r[i + 1] = r[i] * np.exp(-gamma * delta_t) + etha / gamma * (1 - np.exp(-gamma * delta_t)) + sigma * (
+            np.sqrt((1 - np.exp(-2 * gamma * delta_t)) / (2 * gamma))) * np.random.normal()
+
+    a = np.exp(-gamma * delta_t)
+    b = etha / gamma * (1 - np.exp(-gamma * delta_t))
+    d = [a, b]
+    while np.linalg.norm(d, 2) > epsilon:
+        for p in range(N - 1):
+            Res[p] = r[i + 1] - a * r[i] - b
+            Jacobien[p, 0] = -r[p]
+            Jacobien[p, 1] = -1
+
+        d = -np.dot(np.linalg.inv(np.dot(Jacobien.T, Jacobien) + lamb * np.identity(2)),
+                    np.dot(Jacobien.T, Res))
+        a = a + d[0]
+        b = b + d[1]
+
+    D = [r_i_1 - a * r_i - b for r_i_1, r_i in zip(r[1:], r[:N])]
+    gamma = -np.log(a) / delta_t
+    etha = gamma * (b / (1 - a))
+    sigma = np.std(D) * np.sqrt((-2 * np.log(a) / (delta_t * (1 - a ** 2))))
+    print("Variance is equal to ", np.std(D) ** 2)
+
+    plt.scatter(r[:N - 1], r[1:])
+    y = a * r + b
+    plt.plot(r, y)
+    plt.show()
+    print('etha = ', etha, ' sigma =', sigma, ' gamma = ', gamma)
+    print('a = ', a, 'b = ', b)
+    return etha, gamma, sigma
 
 
 t = 0
 r0 = 0.023
 N = 10000
-T = np.linspace(0.001, 30, N + 1)
+# T = np.linspace(0.001, 30, N + 1)
 gamma = 0.25
 etha = 0.25 * 0.03
 sigma = 0.02
@@ -78,11 +117,18 @@ epsilon = 10 ** (-9)
 Y_m = [0.056, 0.064, 0.074, 0.081, 0.082, 0.09, 0.087, 0.092, 0.0895, 0.091]
 Ym = [0.035, 0.041, 0.0439, 0.046, 0.0484, 0.0494, 0.0507, 0.0517, 0.052, 0.0523]
 T = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
-# p = np.zeros(N + 1)
+p = np.zeros(N + 1)
 # for i in range(0, N + 1):
 #     p[i] = Yield(t, T[i], r0, gamma, etha, sigma)
 # plt.plot(T, p)
 # plt.axhline(y=r0, color='r', linestyle='--')
 # plt.show()
-
-Calibration_yield(Ym, T, epsilon, t, r0, lamb, etha, gamma, sigma)
+#
+# Calibration_yield(Ym, T, epsilon, t, r0, lamb, etha, gamma, sigma)
+T = 5
+gamma = 4
+etha = 0.6
+sigma = 0.08
+lamb = 0.01
+N = 50
+Calibrition_historical(N, T, epsilon, lamb, etha, gamma, sigma)
