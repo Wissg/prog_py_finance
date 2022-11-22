@@ -45,13 +45,13 @@ def Calibration_yield(Ym, T, epsilon, t, r, lamb, etha, gamma, sigma):
     while np.linalg.norm(d, 2) > epsilon:
         for p in range(len(T)):
             tau = T[p] - t
-            Yth[p] = Yield(t, T[p], r, gamma, etha, np.sqrt(sigma))
+            Yth[p] = Yield(t, T[p], r, gamma, etha, sigma)
             Res[p] = Ym[p] - Yth[p]
             Jacobien[p, 0] = (B(t, T[p], gamma) - tau) / (gamma * tau)
             Jacobien[p, 1] = -1 * ((1 / (tau * gamma)) * (
                     (B(t, T[p], gamma) - tau) / (2 * gamma) + ((B(t, T[p], gamma) ** 2) / 4)))
             Jacobien[p, 2] = 1 / tau * (
-                    A_derivative(gamma, np.sqrt(sigma), etha, t, T[p]) - r * B_derivative(gamma, t, T[p]))
+                    A_derivative(gamma, sigma, etha, t, T[p]) - r * B_derivative(gamma, t, T[p]))
 
         d = -np.dot(np.linalg.inv(np.dot(Jacobien.T, Jacobien) + lamb * np.identity(3)),
                     np.dot(Jacobien.T, Res))
@@ -77,7 +77,7 @@ def Calibrition_historical(N, T, epsilon, lamb, etha, gamma, sigma):
     d = [a, b]
     while np.linalg.norm(d, 2) > epsilon:
         for p in range(N - 1):
-            Res[p] = r[i + 1] - a * r[i] - b
+            Res[p] = r[p + 1] - a * r[p] - b
             Jacobien[p, 0] = -r[p]
             Jacobien[p, 1] = -1
 
@@ -117,45 +117,45 @@ sigma = 0.02
 lamb = 0.01
 epsilon = 10 ** (-9)
 p = np.zeros(N + 1)
-# for i in range(0, N + 1):
-#     p[i] = Yield(t, T[i], r0, gamma, etha, sigma)
-# plt.plot(T, p)
-# plt.axhline(y=r0, color='r', linestyle='--',label="r0 = 0.027")
-# plt.xlabel("Maturity")
-# plt.ylabel("Yields")
-# plt.title("Yields Slightly humped")
-# plt.legend()
-# plt.savefig('Graph\Yields.png')
-# plt.show()
-#
-# r0 = 0.01
-# for i in range(0, N + 1):
-#     p[i] = Yield(t, T[i], r0, gamma, etha, sigma)
-# plt.plot(T, p)
-# plt.axhline(y=r0, color='r', linestyle='--',label="r0 = 0.01")
-# plt.xlabel("Maturity")
-# plt.ylabel("Yields")
-# plt.title("Yields upward sloping")
-# plt.legend()
-# plt.savefig('Graph\Yields1.png')
-# plt.show()
+for i in range(0, N + 1):
+    p[i] = Yield(t, T[i], r0, gamma, etha, sigma)
+plt.plot(T, p)
+plt.axhline(y=r0, color='r', linestyle='--',label="r0 = 0.027")
+plt.xlabel("Maturity")
+plt.ylabel("Yields")
+plt.title("Yields Slightly humped")
+plt.legend()
+plt.savefig('Graph\Yields.png')
+plt.show()
+
+r0 = 0.01
+for i in range(0, N + 1):
+    p[i] = Yield(t, T[i], r0, gamma, etha, sigma)
+plt.plot(T, p)
+plt.axhline(y=r0, color='r', linestyle='--',label="r0 = 0.01")
+plt.xlabel("Maturity")
+plt.ylabel("Yields")
+plt.title("Yields upward sloping")
+plt.legend()
+plt.savefig('Graph\Yields1.png')
+plt.show()
 
 
 N = 1000000
 p = np.zeros(N + 1)
-# T = np.linspace(100, 0, N + 1,endpoint=False)
-# r0 = 0.05
-# for i in range(0, N + 1):
-#     p[i] = Yield(t, T[i], r0, gamma, etha, sigma)
-# plt.plot(p, T)
-# plt.axhline(y=r0, color='r', linestyle='--',label="r0 = 0.05")
-# plt.xlabel("Yields")
-# plt.ylabel("Maturity")
-# plt.title("Yields curved")
-# plt.legend()
-# plt.savefig('Graph\Lim_Yields_zeros.png')
-# plt.show()
-# print("r0 = ",r0," Y(0,T) T->0 = ",p[N])
+T = np.linspace(100, 0, N + 1,endpoint=False)
+r0 = 0.05
+for i in range(0, N + 1):
+    p[i] = Yield(t, T[i], r0, gamma, etha, sigma)
+plt.plot(p, T)
+plt.axhline(y=r0, color='r', linestyle='--',label="r0 = 0.05")
+plt.xlabel("Yields")
+plt.ylabel("Maturity")
+plt.title("Yields curved")
+plt.legend()
+plt.savefig('Graph\Lim_Yields_zeros.png')
+plt.show()
+print("r0 = ",r0," Y(0,T) T->0 = ",p[N])
 
 T = np.linspace(1, 9999, N + 1)
 for i in range(N + 1):
@@ -178,7 +178,7 @@ etha = 0.25 * 0.03
 sigma = 0.02
 lamb = 0.01
 epsilon = 10 ** (-9)
-r0 = 0.027
+r0 = 0.023
 t =0
 
 Ym = [0.035, 0.041, 0.0439, 0.046, 0.0484, 0.0494, 0.0507, 0.0517, 0.052, 0.0523]
@@ -196,7 +196,7 @@ plt.show()
 
 # Exo 3
 N = 10000
-Y_m = [0.056, 0.064, 0.074, 0.081, 0.082, 0.09, 0.087, 0.092, 0.0895, 0.091]
+Ym = [0.056, 0.064, 0.074, 0.081, 0.082, 0.09, 0.087, 0.092, 0.0895, 0.091]
 gamma = 0.25
 etha = 0.25 * 0.03
 sigma = 0.02
@@ -216,10 +216,10 @@ plt.savefig('Graph\Curved_Yields1.png')
 plt.show()
 
 # Exo 4
-# T = 5
-# gamma = 4
-# etha = 0.6
-# sigma = 0.08
-# lamb = 0.01
-# N = 50
-# Calibrition_historical(N, T, epsilon, lamb, etha, gamma, sigma)
+T = 5
+gamma = 4
+etha = 0.6
+sigma = 0.08
+lamb = 0.01
+N = 50
+Calibrition_historical(N, T, epsilon, lamb, etha, gamma, sigma)
