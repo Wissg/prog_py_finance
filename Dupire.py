@@ -113,11 +113,13 @@ def LevenbergMarquard(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Beta1, Bet
             Jacobien[i, 0] = -Vega[i] / (Kp[i] ** Beta2)
             Jacobien[i, 1] = Vega[i] * (np.log(Kp[i]) * Beta1) / (Kp[i] ** Beta2)
 
+        Hesienne = (np.dot(Jacobien.T, Jacobien) + lamb * np.identity(2))
         d = -np.dot(np.linalg.inv(np.dot(Jacobien.T, Jacobien) + lamb * np.identity(2)),
                     np.dot(Jacobien.T, res))
         Beta1 = Beta1 + d[0]
         Beta2 = Beta2 + d[1]
     print("k = ", k)
+    print("Hesienne = ",Hesienne)
     return Beta1, Beta2
 
 
