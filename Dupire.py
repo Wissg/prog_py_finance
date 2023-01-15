@@ -337,7 +337,6 @@ Beta1 = 1
 Beta2 = 1
 a, m = LevenbergMarquardGatheral(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vm, Beta1, Beta2, a, b, rho, m,'GATHERAL')
 print("a = ", a, " m =",m)
-print(b)
 Beta1 = a
 Beta2 = m
 y = np.zeros(len(Kp))
