@@ -125,6 +125,7 @@ def LevenbergMarquard(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Beta1, Bet
         Beta1 = Beta1 + d[0]
         Beta2 = Beta2 + d[1]
     print("k = ", k)
+    print("d = ", d)
     print("Hesienne = ", Hesienne)
     return Beta1, Beta2
 
@@ -150,6 +151,7 @@ def LevenbergMarquardGatheral(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Be
         a = a + d[0]
         m = m + d[1]
     print("k = ", k)
+    print("d = ", d)
     print("Hesienne = ", Hesienne)
     return a, m
 
