@@ -9,7 +9,7 @@ import pylab
 import Bs
 
 
-def dirac(j, i):
+def Kronecker(j, i):
     if j == i:
         return 1
     else:
@@ -53,7 +53,7 @@ def Crank_Nicolson(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, sigma):
             D[i] = 1 + (deltat / 2) * sigma[i] ** 2 * (K[i] / deltaK) ** 2
             C[n, i] = -B[i] * V[n, i - 1] + (
                     1 - (deltat / 2) * sigma[i] ** 2 * (K[i] / deltaK) ** 2) * V[n, i] - \
-                      A[i] * V[n, i + 1] - dirac(1, i) * B[1] * S0
+                      A[i] * V[n, i + 1] - Kronecker(1, i) * B[1] * S0
         D2[1] = D[1]
         C2[n, 1] = C[n, 1]
         for i in range(2, N + 1):
@@ -290,7 +290,7 @@ b = 0.05
 # # plt.legend()
 # plt.show()
 
-# Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, 0.3)
+# Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h,'GATHERAL',a,b,rho,m)
 #
 # plt.plot(K, Vega[M + 1, :])
 # plt.xlabel("K")
@@ -310,5 +310,42 @@ b = 0.05
 
 Beta1 = 1
 Beta2 = 1
-a, m = LevenbergMarquardGatheral(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vm, Beta1, Beta2, a, b, rho, m,'GATHERAL')
+# a, m = LevenbergMarquardGatheral(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vm, Beta1, Beta2, a, b, rho, m,'GATHERAL')
 print("a = ", a, " m =",m)
+a =  10.202707764970771
+m = 0.05
+m =12.00874008
+Beta1 = a
+Beta2 = m
+y = np.zeros(len(K))
+for i in range(len(K)):
+    y[i] = sigma_locale_gatheral(K, i, Beta1, Beta2, h, a, b, rho, m)
+fig, ax = plt.subplots()
+ax.plot(K, y)
+
+plt.show()
+
+# V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h,'GATHERAL',a,b,rho,m)
+#
+# fig = plt.figure()
+# k, t = np.meshgrid(K, T)
+# ax = fig.add_subplot(projection='3d')
+# ax.plot_surface(k, t, V)
+# ax.set_title("Price Dupire Gatheral Calibrée")
+# ax.set_xlabel("K")
+# ax.set_ylabel("T")
+# ax.set_zlabel("V")
+# # plt.legend()
+# plt.show()
+
+Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, 'GATHERAL', a, b, rho, m)
+
+# fig = plt.figure()
+# k, t = np.meshgrid(K, T)
+# ax = fig.add_subplot(projection='3d')
+# ax.plot_surface(k, t, Vega)
+# ax.set_title("Vega Dupire Gatheral Calibrée")
+# ax.set_xlabel("K")
+# ax.set_ylabel("T")
+# ax.set_zlabel("Vega")
+# plt.show()
