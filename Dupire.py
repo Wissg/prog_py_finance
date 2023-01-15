@@ -79,8 +79,8 @@ def Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV'):
 
 def Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV'):
     return (Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method) - Dupire_Price(Kmax, S0, r, Tmax, N, M,
-                                                                                            Beta1, Beta2, 0,
-                                                                                            method)) / h
+                                                                                          Beta1, Beta2, 0,
+                                                                                          method)) / h
 
 
 def Prix_Dupire_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, h, Kp):
@@ -119,7 +119,7 @@ def LevenbergMarquard(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Beta1, Bet
         Beta1 = Beta1 + d[0]
         Beta2 = Beta2 + d[1]
     print("k = ", k)
-    print("Hesienne = ",Hesienne)
+    print("Hesienne = ", Hesienne)
     return Beta1, Beta2
 
 
@@ -226,3 +226,6 @@ T = np.linspace(0, Tmax, M + 2)
 #
 # Beta1, Beta2 = LevenbergMarquard(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Beta1, Beta2)
 # print("Beta1 = ", Beta1, " Beta2 =", Beta2)
+
+Vm = [5.2705, 4.3783, 3.5510, 2.8138, 2.1833, 1.6651, 1.2541, 0.9374, 0.6983, 0.5195, 0.3851, 0.2817, 0.1987, 0.1277]
+Kp = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
