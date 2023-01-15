@@ -16,11 +16,11 @@ def dirac(j, i):
         return 0
 
 
-def sigma_locale(K, i, Betha1, Betha2, h):
-    return Betha1 / (K[i] ** Betha2) + h
+def sigma_locale(K, i, Beta1, Beta2, h):
+    return Beta1 / (K[i] ** Beta2) + h
 
 
-def Crank_Nicolson(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, sigma):
+def Crank_Nicolson(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, sigma):
     K = np.linspace(0, Kmax, N + 2)
     deltaK = Kmax / (N + 1)
     T = np.linspace(0, Tmax, M + 2)
@@ -61,25 +61,25 @@ def Crank_Nicolson(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, sigma):
     return V
 
 
-def Dupire_Price(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, h, method='CEV'):
+def Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV'):
     sigma = np.zeros(N + 1)
     K = np.linspace(0, Kmax, N + 2)
     if method == 'CEV':
         for i in range(1, N + 1):
-            sigma[i] = sigma_locale(K, i, Betha1, Betha2, h)
+            sigma[i] = sigma_locale(K, i, Beta1, Beta2, h)
     # if method=='GATHERAL':
     #     for i in range(1, N + 1):
     #         sigma[i] = bg*(pg*(K[i]-mg)+np.sqrt((K[i]-mg)**2 + ag**2)) +h
-    if isinstance(method, int):
+    if isinstance(method, float):
         for i in range(1, N + 1):
             sigma[i] = method + h
-    V = Crank_Nicolson(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, sigma)
+    V = Crank_Nicolson(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, sigma)
     return V
 
 
-def Vega_Dupire(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, h, method='CEV'):
-    return (Dupire_Price(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, h, method) - Dupire_Price(Kmax, S0, r, Tmax, N, M,
-                                                                                            Betha1, Betha2, 0,
+def Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV'):
+    return (Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method) - Dupire_Price(Kmax, S0, r, Tmax, N, M,
+                                                                                            Beta1, Beta2, 0,
                                                                                             method)) / h
 
 
@@ -136,7 +136,7 @@ epsilon = 0.00001
 lamb = 0.001
 K = np.linspace(0, Kmax, N + 2)
 T = np.linspace(0, Tmax, M + 2)
-V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
+# V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
 
 # plt.plot(K, V[0, :])
 # plt.xlabel("K")
@@ -149,14 +149,8 @@ V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
 # plt.ylabel("Vega")
 # plt.title("Price Dupire T/2")
 # plt.show()
-#
-# plt.plot(K, V[M+1, :])
-# plt.xlabel("K")
-# plt.ylabel("Vega")
-# plt.title("Price Dupire T")
-# plt.show()
-#
-# V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, h, 0.3)
+
+# V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, 0.3)
 #
 # plt.plot(K, V[0, :])
 # plt.xlabel("K")
@@ -176,6 +170,7 @@ V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
 # plt.title("Price Dupire T sigmal= 0,3")
 # plt.show()
 #
+#
 # fig = plt.figure()
 # k, t = np.meshgrid(K, T)
 # ax = fig.add_subplot(projection='3d')
@@ -186,7 +181,8 @@ V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
 # ax.set_zlabel("V")
 # # plt.legend()
 # plt.show()
-# Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, h)
+
+# Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
 #
 # plt.plot(K, Vega[M+1, :])
 # plt.xlabel("K")
@@ -205,8 +201,7 @@ V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
 # ax.set_zlabel("Vega")
 # plt.show()
 #
-# Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Betha1, Betha2, h, 0.3)
-# print(Vega)
+# Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, 0.3)
 #
 # plt.plot(K, Vega[M+1, :])
 # plt.xlabel("K")
@@ -225,9 +220,9 @@ V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
 # ax.set_zlabel("Vega")
 # plt.show()
 
-Kp = [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]
-Vp = [3.3634, 2.9092, 2.4703, 2.0536, 1.6666, 1.3167, 1.0100, 0.7504, 0.5389, 0.3733, 0.2491, 0.1599, 0.0986, 0.0584,
-      0.0332]
-
-Beta1, Beta2 = LevenbergMarquard(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Beta1, Beta2)
-print("Betha1 = ", Beta1, " Betha2 =", Beta2)
+# Kp = [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]
+# Vp = [3.3634, 2.9092, 2.4703, 2.0536, 1.6666, 1.3167, 1.0100, 0.7504, 0.5389, 0.3733, 0.2491, 0.1599, 0.0986, 0.0584,
+#       0.0332]
+#
+# Beta1, Beta2 = LevenbergMarquard(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Beta1, Beta2)
+# print("Beta1 = ", Beta1, " Beta2 =", Beta2)
