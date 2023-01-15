@@ -20,6 +20,10 @@ def sigma_locale(K, i, Beta1, Beta2, h):
     return Beta1 / (K[i] ** Beta2) + h
 
 
+def sigma_locale_gatheral(K, i, Beta1, Beta2, h, a, b, rho, m):
+    return b * (rho * (K[i] - m) + np.sqrt((K[i] - m) ** 2 + a ** 2)) + h
+
+
 def Crank_Nicolson(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, sigma):
     K = np.linspace(0, Kmax, N + 2)
     deltaK = Kmax / (N + 1)
@@ -61,15 +65,15 @@ def Crank_Nicolson(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, sigma):
     return V
 
 
-def Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV'):
+def Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV', a=5, b=0.05, rho=0.1, m=5):
     sigma = np.zeros(N + 1)
     K = np.linspace(0, Kmax, N + 2)
     if method == 'CEV':
         for i in range(1, N + 1):
             sigma[i] = sigma_locale(K, i, Beta1, Beta2, h)
-    # if method=='GATHERAL':
-    #     for i in range(1, N + 1):
-    #         sigma[i] = bg*(pg*(K[i]-mg)+np.sqrt((K[i]-mg)**2 + ag**2)) +h
+    if method == 'GATHERAL':
+        for i in range(1, N + 1):
+            sigma[i] = sigma_locale_gatheral(K, i, Beta1, Beta2, h, a, b, rho, m)
     if isinstance(method, float):
         for i in range(1, N + 1):
             sigma[i] = method + h
@@ -77,14 +81,16 @@ def Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV'):
     return V
 
 
-def Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV'):
-    return (Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method) - Dupire_Price(Kmax, S0, r, Tmax, N, M,
-                                                                                          Beta1, Beta2, 0,
-                                                                                          method)) / h
+def Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method='CEV', a=5, b=0.05, rho=0.1, m=5):
+    return (Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, method, a, b, rho, m) - Dupire_Price(Kmax, S0, r,
+                                                                                                        Tmax, N, M,
+                                                                                                        Beta1, Beta2, 0,
+                                                                                                        method, a, b,
+                                                                                                        rho, m)) / h
 
 
-def Prix_Dupire_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, h, Kp):
-    V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
+def Prix_Dupire_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, h, Kp,method ='CEV', a=5, b=0.05, rho=0.1, m=5):
+    V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h,method, a, b, rho, m)
     p = np.zeros((len(Kp))).astype(int)
     dk = Kmax / (N + 1)
     for i in range(len(Kp)):
@@ -93,9 +99,9 @@ def Prix_Dupire_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, h, Kp):
     return V[50, p], p
 
 
-def Vega_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, h):
-    Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h)
-    _, p = Prix_Dupire_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, h, Kp)
+def Vega_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, h,method ='CEV', a=5, b=0.05, rho=0.1, m=5):
+    Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h,method, a, b, rho, m)
+    _, p = Prix_Dupire_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, h, Kp,method , a, b, rho, m)
     return Vega[50, p]
 
 
@@ -123,6 +129,31 @@ def LevenbergMarquard(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Beta1, Bet
     return Beta1, Beta2
 
 
+def LevenbergMarquardGatheral(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vp, Beta1, Beta2, a, b, rho, m,
+                              method='GATHERAL'):
+    d = [1, 1]
+    k = 0
+    res = np.zeros(len(Kp))
+    Jacobien = np.zeros((len(Kp), 2))
+    while np.linalg.norm(d, 2) > epsilon:
+        k = k + 1
+        Vdupire, _ = Prix_Dupire_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, 0, Kp,method , a, b, rho, m)
+        Vega = Vega_Utiles(Beta1, Beta2, S0, r, Tmax, Kmax, M, N, 0.01,method, a, b, rho, m)
+        for i in range(len(Kp)):
+            res[i] = Vp[i] - Vdupire[i]
+            Jacobien[i, 0] = -Vega[i] * b * a / (np.sqrt((Kp[i] - m) ** 2 + a ** 2))
+            Jacobien[i, 1] = -Vega[i] * b * (-rho + (m - Kp[i]) / (np.sqrt((Kp[i] - m) ** 2 + a ** 2)))
+
+        Hesienne = (np.dot(Jacobien.T, Jacobien) + lamb * np.identity(2))
+        d = -np.dot(np.linalg.inv(np.dot(Jacobien.T, Jacobien) + lamb * np.identity(2)),
+                    np.dot(Jacobien.T, res))
+        a = a + d[0]
+        m = m + d[1]
+    print("k = ", k)
+    print("Hesienne = ", Hesienne)
+    return a, b
+
+
 Kmax = 20
 S0 = 10
 r = 0.1
@@ -146,8 +177,14 @@ T = np.linspace(0, Tmax, M + 2)
 #
 # plt.plot(K, V[floor((M+1)/2), :])
 # plt.xlabel("K")
-# plt.ylabel("Vega")
+# plt.ylabel("V")
 # plt.title("Price Dupire T/2")
+# plt.show()
+
+# plt.plot(K, V[M+1, :])
+# plt.xlabel("K")
+# plt.ylabel("V")
+# plt.title("Price Dupire T")
 # plt.show()
 
 # V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, 0.3)
@@ -160,13 +197,13 @@ T = np.linspace(0, Tmax, M + 2)
 #
 # plt.plot(K, V[floor((M+1)/2), :])
 # plt.xlabel("K")
-# plt.ylabel("Vega")
+# plt.ylabel("V")
 # plt.title("Price Dupire T/2 sigmal= 0,3")
 # plt.show()
 #
 # plt.plot(K, V[M+1, :])
 # plt.xlabel("K")
-# plt.ylabel("Vega")
+# plt.ylabel("V")
 # plt.title("Price Dupire T sigmal= 0,3")
 # plt.show()
 #
@@ -229,3 +266,49 @@ T = np.linspace(0, Tmax, M + 2)
 
 Vm = [5.2705, 4.3783, 3.5510, 2.8138, 2.1833, 1.6651, 1.2541, 0.9374, 0.6983, 0.5195, 0.3851, 0.2817, 0.1987, 0.1277]
 Kp = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+a = 5
+m = 5
+rho = 0.1
+b = 0.05
+
+# V = Dupire_Price(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h,'GATHERAL',a,b,rho,m)
+#
+# plt.plot(K, V[M+1, :])
+# plt.xlabel("K")
+# plt.ylabel("V")
+# plt.title("Price Dupire Gatheral")
+# plt.show()
+#
+# fig = plt.figure()
+# k, t = np.meshgrid(K, T)
+# ax = fig.add_subplot(projection='3d')
+# ax.plot_surface(k, t, V)
+# ax.set_title("Price Dupire Gatheral")
+# ax.set_xlabel("K")
+# ax.set_ylabel("T")
+# ax.set_zlabel("V")
+# # plt.legend()
+# plt.show()
+
+# Vega = Vega_Dupire(Kmax, S0, r, Tmax, N, M, Beta1, Beta2, h, 0.3)
+#
+# plt.plot(K, Vega[M + 1, :])
+# plt.xlabel("K")
+# plt.ylabel("Vega")
+# plt.title("Vega Dupire Gatheral")
+# plt.show()
+#
+# fig = plt.figure()
+# k, t = np.meshgrid(K, T)
+# ax = fig.add_subplot(projection='3d')
+# ax.plot_surface(k, t, Vega)
+# ax.set_title("Vega Dupire Gatheral")
+# ax.set_xlabel("K")
+# ax.set_ylabel("T")
+# ax.set_zlabel("Vega")
+# plt.show()
+
+Beta1 = 1
+Beta2 = 1
+a, m = LevenbergMarquardGatheral(S0, r, Tmax, Kmax, M, N, epsilon, lamb, Kp, Vm, Beta1, Beta2, a, b, rho, m,'GATHERAL')
+print("a = ", a, " m =",m)
