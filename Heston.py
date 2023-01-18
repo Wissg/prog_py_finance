@@ -173,7 +173,7 @@ def theta_Hetson(Nmc, N, K, S0, T, r, k, rho, theta, etha, V0, h1, N11, N22):
                                                                          V0, N11, N22)) / (2 * h1)
 
 
-def LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vp, N11, N22):
+def LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vp, N11, N22,h2,h1):
     d = [1, 1]
     count = 0
     res = np.zeros(len(Kp))
@@ -181,9 +181,9 @@ def LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, 
     while np.linalg.norm(d, 2) > epsilon:
         count = count + 1
         for i in range(len(Kp)):
-            Vheston = Heston_Estimateur2(Nmc, N, Kp[i], S0, T, r, k, rho, theta, etha, V0)
+            Vheston = Heston_Estimateur2_Matrice(Nmc, N, Kp[i], S0, T, r, k, rho, theta, etha, V0, N11, N22)
             res[i] = Vp[i] - Vheston
-            Jacobien[i, 0] = -theta_Hetson(Nmc, N, Kp[i], S0, T, r, k, rho, theta, etha, V0, h2, N11, N22)
+            Jacobien[i, 0] = -theta_Hetson(Nmc, N, Kp[i], S0, T, r, k, rho, theta, etha, V0, h1, N11, N22)
             Jacobien[i, 1] = -Etha_Hetson(Nmc, N, Kp[i], S0, T, r, k, rho, theta, etha, V0, h2, N11, N22)
 
         Hesienne = (np.dot(Jacobien.T, Jacobien) + lamb * np.identity(2))
@@ -329,10 +329,12 @@ r = 0.01
 V0 = 0.04
 rho = 0.5
 k = 3
+h1 = 0.01
+h2 = h1
 
 Vm = [2.0944, 1.7488, 1.4266, 1.1456, 0.8919, 0.7068, 0.5461, 0.4187, 0.3166, 0.2425, 0.1860, 0.1370, 0.0967, 0.0715,
       0.0547, 0.0381, 0.0306, 0.0239, 0.0163, 0.0139, 0.086]
-Kp = np.arange(8, 16, 0.4)
+Kp = np.arange(8, 16.4, 0.4)
 
 N11 = np.zeros((Nmc, N))
 N22 = np.zeros((Nmc, N))
@@ -341,5 +343,5 @@ for p in range(0, Nmc):
         N11[p, i] = np.random.normal()
         N22[p, i] = np.random.normal()
 
-theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22)
+theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22,h2,h1)
 print("theta = ", theta, " eta =", etha)
