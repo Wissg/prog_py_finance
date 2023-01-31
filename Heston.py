@@ -173,7 +173,7 @@ def theta_Hetson(Nmc, N, K, S0, T, r, k, rho, theta, etha, V0, h1, N11, N22):
                                                                          V0, N11, N22)) / (2 * h1)
 
 
-def LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vp, N11, N22,h2,h1):
+def LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vp, N11, N22, h2, h1):
     d = [1, 1]
     count = 0
     res = np.zeros(len(Kp))
@@ -202,6 +202,29 @@ def LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, 
     print("d = ", d)
     print("Hesienne = ", Hesienne)
     return theta, etha
+
+
+def sigma_locale_heston(Nmc, N, S0, T, r, k, rho, theta, etha, V0, K, N11, N22,epsilon):
+    t = 0
+    vsigma = np.zeros(len(K))
+
+    for i in range(0, len(K)):
+        V_Heston = Heston_Estimateur2_Matrice(Nmc, N, K[i], S0, T, r, k, rho, theta, etha, V0, N11, N22)
+        if np.maximum(S0 - K[i] * np.exp(-r * T), 0) < V_Heston and V_Heston < S0:
+            sigma = np.sqrt(2 * np.abs((np.log(S0 / K[i]) + r * T) / T))
+            while np.abs(Bs.BS_CALL(t, S0, K[i], T, r, sigma) - Heston_Estimateur2_Matrice(Nmc, N, K[i], S0, T, r, k, rho, theta, etha, V0, N11, N22))> epsilon:
+                d1 = (np.log(S0 / K[i]) + (r + sigma ** 2 / 2) * (T - t)) / (sigma * np.sqrt((T - t)))
+                Fprime = S0 * np.sqrt(T / (2 * np.pi)) * np.exp((-d1 ** 2) / 2)
+                F = Bs.BS_CALL(t, S0, K[i], T, r, sigma) - Heston_Estimateur2_Matrice(Nmc, N, K[i], S0, T, r, k, rho, theta,
+                                                                                   etha, V0,
+                                                                                   N11, N22)
+                sigma = sigma - F / Fprime
+                print(sigma)
+        else:
+            "condition d'absence d'arbitrage"
+            sigma = 0
+        vsigma[i] = sigma
+    return vsigma
 
 
 N = 100
@@ -319,7 +342,7 @@ V0 = 0.04
 # plt.savefig('Graph\Theta_Heston.png')
 # plt.show()
 
-Nmc = 100
+Nmc = 1000
 theta = 0.2
 etha = 0.5
 epsilon = 0.0001
@@ -334,7 +357,7 @@ h2 = h1
 
 Vm = [2.0944, 1.7488, 1.4266, 1.1456, 0.8919, 0.7068, 0.5461, 0.4187, 0.3166, 0.2425, 0.1860, 0.1370, 0.0967, 0.0715,
       0.0547, 0.0381, 0.0306, 0.0239, 0.0163, 0.0139, 0.086]
-Kp = np.arange(8, 16.4, 0.4)
+Kp = np.linspace(8, 16, 21)
 
 N11 = np.zeros((Nmc, N))
 N22 = np.zeros((Nmc, N))
@@ -343,5 +366,17 @@ for p in range(0, Nmc):
         N11[p, i] = np.random.normal()
         N22[p, i] = np.random.normal()
 
-theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22,h2,h1)
-print("theta = ", theta, " eta =", etha)
+# theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22, h2, h1)
+# print("theta = ", theta, " eta =", etha)
+theta =0.09339798001628526
+eta = 0.2695525904228106
+epsilon = 0.0001
+y = np.zeros(len(Kp))
+y = sigma_locale_heston(Nmc, N, S0, T, r, k, rho, theta, etha, V0, Kp, N11, N22,epsilon)
+fig, ax = plt.subplots()
+ax.plot(Kp, y)
+plt.xlabel("K")
+plt.ylabel("sigma local")
+plt.title("Sigma local Heston")
+plt.savefig('Graph\Sigma_local_Gaheral.png')
+plt.show()
