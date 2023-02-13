@@ -219,7 +219,7 @@ def sigma_locale_heston(Nmc, N, S0, T, r, k, rho, theta, etha, V0, K, N11, N22,e
                                                                                    etha, V0,
                                                                                    N11, N22)
                 sigma = sigma - F / Fprime
-                print(sigma)
+                print("sigma[",i,"] =",sigma)
         else:
             "condition d'absence d'arbitrage"
             sigma = 0
@@ -238,54 +238,54 @@ rho = 0.9
 theta = 0.04
 etha = 0.3
 V0 = 0.04
-# log_return1, evol_Vol, evol_Actif = Heston(Nmc, N, K, S0, T, r, k, rho, theta, etha, V0)
-# for i in range(0, 4):
-#     plt.plot(evol_Vol[i, :])
-#     plt.title("Evolution de la volatilité rho = 0.9")
-# plt.savefig('Graph\Evolution_volatilié_rho_-0-9.png')
-# plt.show()
-# for i in range(0, 4):
-#     plt.plot(evol_Actif[i, :])
-#     plt.title("Evolution de L'actif rho = 0.9")
-# plt.savefig('Graph\Evolution_actif_rho_-0-9.png')
-# plt.show()
-#
-#
-# rho = 0
-# log_return2, evol_Vol, evol_Actif = Heston(Nmc, N, K, S0, T, r, k, rho, theta, etha, V0)
-# for i in range(0, 4):
-#     plt.plot(evol_Vol[i, :])
-#     plt.title("Evolution de la volatilité rho = 0")
-# plt.savefig('Graph\Evolution_volatilité_rho_0.png')
-# plt.show()
-# for i in range(0, 4):
-#     plt.plot(evol_Actif[i, :])
-#     plt.title("Evolution de L'actif rho = 0")
-# plt.savefig('Graph\Evolution_actif_rho_0.png')
-# plt.show()
-#
-# rho = -0.9
-# log_return3, evol_Vol, evol_Actif = Heston(Nmc, N, K, S0, T, r, k, rho, theta, etha, V0)
-# for i in range(0, 4):
-#     plt.plot(evol_Vol[i, :])
-#     plt.title("Evolution de la volatilité rho = -0.9")
-# plt.savefig('Graph\Evolution_volatilité_rho_-0-9.png')
-# plt.show()
-# for i in range(0, 4):
-#     plt.plot(evol_Actif[i, :])
-#     plt.title("Evolution de L'actif rho = -0.9")
-# plt.savefig('Graph\Evolution_actif_rho_-0-9.png')
-# plt.show()
-#
-# sns.kdeplot(log_return1, label="rho = 0.9")
-# sns.kdeplot(log_return2, label="rho = 0")
-# sns.kdeplot(log_return3, label="rho = -0.9")
-# plt.xlabel("log return")
-# plt.ylabel("Valeur")
-# plt.title("Fonction de densite log return")
-# plt.legend()
-# plt.savefig('Graph\densite_log_return.png')
-# plt.show()
+log_return1, evol_Vol, evol_Actif = Heston(Nmc, N, K, S0, T, r, k, rho, theta, etha, V0)
+for i in range(0, 4):
+    plt.plot(evol_Vol[i, :])
+    plt.title("Evolution de la volatilité rho = 0.9")
+plt.savefig('Graph\Evolution_volatilité_rho_0-9.png')
+plt.show()
+for i in range(0, 4):
+    plt.plot(evol_Actif[i, :])
+    plt.title("Evolution de L'actif rho = 0.9")
+plt.savefig('Graph\Evolution_actif_rho_0-9.png')
+plt.show()
+
+
+rho = 0
+log_return2, evol_Vol, evol_Actif = Heston(Nmc, N, K, S0, T, r, k, rho, theta, etha, V0)
+for i in range(0, 4):
+    plt.plot(evol_Vol[i, :])
+    plt.title("Evolution de la volatilité rho = 0")
+plt.savefig('Graph\Evolution_volatilité_rho_0.png')
+plt.show()
+for i in range(0, 4):
+    plt.plot(evol_Actif[i, :])
+    plt.title("Evolution de L'actif rho = 0")
+plt.savefig('Graph\Evolution_actif_rho_0.png')
+plt.show()
+
+rho = -0.9
+log_return3, evol_Vol, evol_Actif = Heston(Nmc, N, K, S0, T, r, k, rho, theta, etha, V0)
+for i in range(0, 4):
+    plt.plot(evol_Vol[i, :])
+    plt.title("Evolution de la volatilité rho = -0.9")
+plt.savefig('Graph\Evolution_volatilité_rho_-0-9.png')
+plt.show()
+for i in range(0, 4):
+    plt.plot(evol_Actif[i, :])
+    plt.title("Evolution de L'actif rho = -0.9")
+plt.savefig('Graph\Evolution_actif_rho_-0-9.png')
+plt.show()
+
+sns.kdeplot(log_return1, label="rho = 0.9")
+sns.kdeplot(log_return2, label="rho = 0")
+sns.kdeplot(log_return3, label="rho = -0.9")
+plt.xlabel("log return")
+plt.ylabel("Valeur")
+plt.title("Fonction de densite log return")
+plt.legend()
+plt.savefig('Graph\densite_log_return.png')
+plt.show()
 Nmc = 10
 K = 10
 # S = np.linspace(0.01, 20, 500)
@@ -354,6 +354,8 @@ rho = 0.5
 k = 3
 h1 = 0.01
 h2 = h1
+T = 0.5
+r = 0.01
 
 Vm = [2.0944, 1.7488, 1.4266, 1.1456, 0.8919, 0.7068, 0.5461, 0.4187, 0.3166, 0.2425, 0.1860, 0.1370, 0.0967, 0.0715,
       0.0547, 0.0381, 0.0306, 0.0239, 0.0163, 0.0139, 0.086]
@@ -368,6 +370,7 @@ for p in range(0, Nmc):
 
 # theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22, h2, h1)
 # print("theta = ", theta, " eta =", etha)
+
 Nmc = 1000
 L =20
 S0 = 10
@@ -381,7 +384,7 @@ V0 = 0.03
 N = 100
 epsilon = 0.0001
 
-Kp = np.linspace(0, L, 100)
+Kp = np.linspace(5, L, 30)
 y = np.zeros(len(Kp))
 y = sigma_locale_heston(Nmc, N, S0, T, r, k, rho, theta, etha, V0, Kp, N11, N22,epsilon)
 fig, ax = plt.subplots()
@@ -389,5 +392,29 @@ ax.plot(Kp, y)
 plt.xlabel("K")
 plt.ylabel("sigma local")
 plt.title("Sigma local Heston")
-plt.savefig('Graph\Sigma_local_Gaheral.png')
+plt.savefig('Graph\Sigma_local_heston.png')
+plt.show()
+
+Nmc = 1000
+L =20
+S0 = 10
+T = 0.5
+r = 0.1
+k=1.32
+rho =-0.7
+theta = 0.04
+etha = 0.4
+V0 = 0.02
+N = 100
+epsilon = 0.0001
+
+Kp = np.linspace(5, L, 30)
+y = np.zeros(len(Kp))
+y = sigma_locale_heston(Nmc, N, S0, T, r, k, rho, theta, etha, V0, Kp, N11, N22,epsilon)
+fig, ax = plt.subplots()
+ax.plot(Kp, y)
+plt.xlabel("K")
+plt.ylabel("sigma local")
+plt.title("Sigma local Heston Gaheral")
+plt.savefig('Graph\Sigma_local_Gaheral_heston.png')
 plt.show()
