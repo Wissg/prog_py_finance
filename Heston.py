@@ -371,6 +371,12 @@ for p in range(0, Nmc):
 # theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22, h2, h1)
 # print("theta = ", theta, " eta =", etha)
 
+N11 = np.zeros((Nmc, N))
+N22 = np.zeros((Nmc, N))
+for p in range(0, Nmc):
+    for i in range(0, N):
+        N11[p, i] = np.random.normal()
+        N22[p, i] = np.random.normal()
 Nmc = 1000
 L =20
 S0 = 10
@@ -395,6 +401,12 @@ plt.title("Sigma local Heston")
 plt.savefig('Graph\Sigma_local_heston.png')
 plt.show()
 
+N11 = np.zeros((Nmc, N))
+N22 = np.zeros((Nmc, N))
+for p in range(0, Nmc):
+    for i in range(0, N):
+        N11[p, i] = np.random.normal()
+        N22[p, i] = np.random.normal()
 Nmc = 1000
 L =20
 S0 = 10
