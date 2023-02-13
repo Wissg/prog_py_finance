@@ -368,9 +368,20 @@ for p in range(0, Nmc):
 
 # theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22, h2, h1)
 # print("theta = ", theta, " eta =", etha)
-theta =0.09339798001628526
-eta = 0.2695525904228106
+Nmc = 1000
+L =20
+S0 = 10
+T = 0.5
+r = 0.1
+k=0.3
+rho =0.7
+theta = 0.3
+etha = 0.4
+V0 = 0.03
+N = 100
 epsilon = 0.0001
+
+Kp = np.linspace(0, L, 100)
 y = np.zeros(len(Kp))
 y = sigma_locale_heston(Nmc, N, S0, T, r, k, rho, theta, etha, V0, Kp, N11, N22,epsilon)
 fig, ax = plt.subplots()
