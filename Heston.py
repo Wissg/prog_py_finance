@@ -288,21 +288,21 @@ plt.savefig('Graph\densite_log_return.png')
 plt.show()
 Nmc = 10
 K = 10
-# S = np.linspace(0.01, 20, 500)
-# VH1 = np.zeros(len(S))
-# VH2 = np.zeros(len(S))
-# for i in range(len(S)):
-#     VH1[i] = Heston_Estimateur1(Nmc, N, K, S[i], T, r, k, rho, theta, etha, V0)
-#     VH2[i] = Heston_Estimateur2(Nmc, N, K, S[i], T, r, k, rho, theta, etha, V0)
-#
-# plt.plot(S, VH1, label="Estimateur 1")
-# plt.plot(S, VH2, label="Estimateur 2")
-# plt.xlabel("S0")
-# plt.ylabel("V Heston")
-# plt.title("C")
-# plt.legend()
-# plt.savefig('Graph\V_Heston-Estimateur.png')
-# plt.show()
+S = np.linspace(0.01, 20, 500)
+VH1 = np.zeros(len(S))
+VH2 = np.zeros(len(S))
+for i in range(len(S)):
+    VH1[i] = Heston_Estimateur1(Nmc, N, K, S[i], T, r, k, rho, theta, etha, V0)
+    VH2[i] = Heston_Estimateur2(Nmc, N, K, S[i], T, r, k, rho, theta, etha, V0)
+
+plt.plot(S, VH1, label="Estimateur 1")
+plt.plot(S, VH2, label="Estimateur 2")
+plt.xlabel("S0")
+plt.ylabel("V Heston")
+plt.title("C")
+plt.legend()
+plt.savefig('Graph\V_Heston-Estimateur.png')
+plt.show()
 
 Nmc = 1000
 N = 100
@@ -316,31 +316,31 @@ rho = 0.5
 theta = 0.2
 etha = 0.5
 V0 = 0.04
-# K1 = np.linspace(0.1, 20, 40)
-# Etha1 = np.zeros(len(K1))
-# Theta1 = np.zeros(len(K1))
-# N11 = np.zeros((Nmc, N))
-# N22 = np.zeros((Nmc, N))
-# for p in range(0, Nmc):
-#     for i in range(0, N):
-#         N11[p, i] = np.random.normal()
-#         N22[p, i] = np.random.normal()
-#
-# for i in range(len(K1)):
-#     Etha1[i] = Etha_Hetson(Nmc, N, K1[i], S0, T, r, k, rho, theta, etha, V0, h1, N11, N22)
-#     Theta1[i] = theta_Hetson(Nmc, N, K1[i], S0, T, r, k, rho, theta, etha, V0, h1, N11, N22)
-# plt.plot(K1, Etha1)
-# plt.xlabel("K")
-# plt.ylabel("Eta Heston")
-# plt.title("Eta Heston")
-# plt.savefig('Graph\Etha_Heston.png')
-# plt.show()
-# plt.plot(K1, Theta1)
-# plt.xlabel("K")
-# plt.ylabel("Theta Heston")
-# plt.title("Theta Estimateur")
-# plt.savefig('Graph\Theta_Heston.png')
-# plt.show()
+K1 = np.linspace(0.1, 20, 40)
+Etha1 = np.zeros(len(K1))
+Theta1 = np.zeros(len(K1))
+N11 = np.zeros((Nmc, N))
+N22 = np.zeros((Nmc, N))
+for p in range(0, Nmc):
+    for i in range(0, N):
+        N11[p, i] = np.random.normal()
+        N22[p, i] = np.random.normal()
+
+for i in range(len(K1)):
+    Etha1[i] = Etha_Hetson(Nmc, N, K1[i], S0, T, r, k, rho, theta, etha, V0, h1, N11, N22)
+    Theta1[i] = theta_Hetson(Nmc, N, K1[i], S0, T, r, k, rho, theta, etha, V0, h1, N11, N22)
+plt.plot(K1, Etha1)
+plt.xlabel("K")
+plt.ylabel("Eta Heston")
+plt.title("Eta Heston")
+plt.savefig('Graph\Etha_Heston.png')
+plt.show()
+plt.plot(K1, Theta1)
+plt.xlabel("K")
+plt.ylabel("Theta Heston")
+plt.title("Theta Estimateur")
+plt.savefig('Graph\Theta_Heston.png')
+plt.show()
 
 Nmc = 1000
 theta = 0.2
@@ -368,8 +368,8 @@ for p in range(0, Nmc):
         N11[p, i] = np.random.normal()
         N22[p, i] = np.random.normal()
 
-# theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22, h2, h1)
-# print("theta = ", theta, " eta =", etha)
+theta, etha = LevenbergMarquard(Nmc, N, S0, T, r, k, rho, theta, etha, V0, epsilon, lamb, Kp, Vm, N11, N22, h2, h1)
+print("theta = ", theta, " eta =", etha)
 
 N11 = np.zeros((Nmc, N))
 N22 = np.zeros((Nmc, N))
